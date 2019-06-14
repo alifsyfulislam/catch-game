@@ -60,6 +60,7 @@ body,html{
     top: 110px;
     left: 95px;
     animation: shakes 1.8s ease infinite;
+    z-index: 1000;
 }
 
 @keyframes shakes {
@@ -87,14 +88,27 @@ body,html{
     background-repeat: no-repeat;
 }
 
+.gloves_area{
+    height: 250px;
+    width: 300px;
+    left: 0;
+    top: 0px;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
+}
+
 .gloves_div{
     height: 75px;
     width: 65px;
-    top: 195px;
+    top: 190px;
     left: 120px;
     background-image: url("gloves.png");
     background-repeat: no-repeat;
     background-size: 100%;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
 }
 
 .show{

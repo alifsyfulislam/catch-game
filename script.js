@@ -20,7 +20,7 @@ var totalScore = setInterval(function () {
 
 var slide2 = document.querySelector('.slide_2');
 var interval;
-gameBox.addEventListener('click', checkIT);
+selectorDiv.addEventListener('click', checkIT);
 function checkIT() {
     selectorDiv.style.display = "none";
     ballDrop();
@@ -119,5 +119,26 @@ function catchBall(e) {
 
 }
 
+
+
+
+glovesDiv.addEventListener('touchmove', function (e) {
+    // stop touch event
+    e.stopPropagation();
+    e.preventDefault();
+
+    // translate to mouse event
+    var clkEvt = document.createEvent('MouseEvent');
+    clkEvt.initMouseEvent('mousemove', true, true, window, e.detail,
+        e.touches[0].screenX, e.touches[0].screenY,
+        e.touches[0].clientX, e.touches[0].clientY,
+        false, false, false, false,
+        0, null);
+    glovesDiv.dispatchEvent(clkEvt);
+
+    // or just handle touch event
+    // myMoveHandler(e);
+    console.log(e);
+}, false);
 
 
