@@ -111,6 +111,25 @@ body,html{
     user-select: none;
 }
 
+.left_move,.right_move{
+    width: 150px;
+    height: 100px;
+    top: 150px;
+}
+
+.left_move{
+    left: 0;
+    background-image: url("left.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+.right_move{
+    left: 150px;
+    background-image: url("right.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
 .show{
     display: block;
 }

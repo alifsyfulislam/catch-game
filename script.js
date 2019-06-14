@@ -120,25 +120,28 @@ function catchBall(e) {
 }
 
 
+var leftMove = document.querySelector('.left_move');
+var rightMove = document.querySelector('.right_move');
 
+leftMove.addEventListener('click',function () {
+    if (posX<=0) {
+        posX=0;
+        glovesDiv.style.left = posX+"px";
+    }
+    else {
+        posX-=20;
+        glovesDiv.style.left = posX+"px";
+    }
+});
 
-glovesDiv.addEventListener('touchmove', function (e) {
-    // stop touch event
-    e.stopPropagation();
-    e.preventDefault();
-
-    // translate to mouse event
-    var clkEvt = document.createEvent('MouseEvent');
-    clkEvt.initMouseEvent('mousemove', true, true, window, e.detail,
-        e.touches[0].screenX, e.touches[0].screenY,
-        e.touches[0].clientX, e.touches[0].clientY,
-        false, false, false, false,
-        0, null);
-    glovesDiv.dispatchEvent(clkEvt);
-
-    // or just handle touch event
-    // myMoveHandler(e);
-    console.log(e);
-}, false);
-
+rightMove.addEventListener('click',function () {
+    if (posX>=260) {
+        posX=260;
+        glovesDiv.style.left = posX+"px";
+    }
+    else {
+        posX+=20;
+        glovesDiv.style.left = posX+"px";
+    }
+});
 
