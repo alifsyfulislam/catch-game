@@ -10,7 +10,7 @@ var ballDiv = document.querySelector('.ball_div');
 var glovesDiv = document.querySelector('.gloves_div');
 var selectorDiv = document.querySelector('.selector_div');
 var timer = document.querySelector('#timer');
-let counter = 15;
+let counter = 20;
 
 
 var totalScore = setInterval(function () {
@@ -23,10 +23,10 @@ var interval;
 selectorDiv.addEventListener('click', checkIT);
 function checkIT() {
     selectorDiv.style.display = "none";
-    ballDrop();
+	ballDrop();
     interval = setInterval(function () {
         counter--;
-        if (score>= 3 && counter < 0){
+        if (score>= 5 && counter < 0){
             gameBox.classList.add('hidden');
             glovesDiv.style.display= "none";
             clearInterval(totalScore);
@@ -35,7 +35,7 @@ function checkIT() {
             slide2.classList.remove('hidden');
             slide2.classList.add('show');
             document.getElementById('time2').innerHTML = "You Take "+ score + " Catches!";
-            document.getElementById('total_count').innerHTML = "In " + 15 + " Seconds!";
+            document.getElementById('total_count').innerHTML = "In " + 20 + " Seconds!";
             document.getElementById('result').innerHTML = "Tremendous Performance!";
         }
         else if(score < 3 && counter < 0){
@@ -47,7 +47,7 @@ function checkIT() {
             slide2.classList.remove('hidden');
             slide2.classList.add('show');
             document.getElementById('time2').innerHTML = "You Take "+ score + " Catches!";
-            document.getElementById('total_count').innerHTML = "In " + 15 + " Seconds!";
+            document.getElementById('total_count').innerHTML = "In " + 20 + " Seconds!";
             document.getElementById('result').innerHTML = "Very Poor Attempt!";
         }
         else{
@@ -56,13 +56,14 @@ function checkIT() {
     },1000)
 }
 
-var ballRmv;
+var ballRmv,boundaryWall;
 function ballDrop(){
     ballRmv = setInterval(function () {
         ballDiv.style.top = aPosY+"px";
         ballDiv.style.left = aPosX+"px";
-        aPosY+= 5;
-        var boundaryWall = Math.abs(aPosX - posX)<=0? 10 : Math.abs(aPosX - posX);
+        aPosY+= 7;
+
+        boundaryWall = Math.abs(aPosX - posX)<=0? 10 : Math.abs(aPosX - posX);
         if ( boundaryWall<= 25 && Math.abs(aPosY - posY) <= 5){
             var aPoX = Math.random() * width;
             while(aPosX <= 25){
@@ -78,6 +79,7 @@ function ballDrop(){
             aPosY = 0;
             score += 1;
         }
+        
         if(aPosY >= height-50){
             var aPoX = Math.random() * width;
             aPosX = Math.round(aPoX)
@@ -116,7 +118,6 @@ function catchBall(e) {
             glovesDiv.style.left = posX+"px";
         }
     }
-
 }
 
 
@@ -144,4 +145,49 @@ rightMove.addEventListener('click',function () {
         glovesDiv.style.left = posX+"px";
     }
 });
+
+
+var touchX1, touchX2, touchDiff, touchMove;
+
+glovesDiv.addEventListener("touchstart", touchStart);
+glovesDiv.addEventListener("touchend", touchEnd);
+glovesDiv.addEventListener("touchmove", touchDetect);
+
+
+
+
+function touchStart(e){
+    e = e || window.event;
+    touchX1 = e.changedTouches[0].pageX;
+}
+
+
+function touchEnd(e){
+    e = e || window.event;
+    touchX2 = e.changedTouches[0].pageX;
+    touchDiff = touchX1 - touchX2;
+    if (touchDiff>10) {
+        console.log("rightSwipe");
+    }
+
+    else{
+        console.log("leftSwipe");
+    }
+}
+
+
+function touchDetect(e){
+    touchMove = Math.round(e.touches[0].clientX);
+    if (touchMove<0) {
+        glovesDiv.style.left = 0+"px";
+    }
+    else if(touchMove>=260){
+        glovesDiv.style.left = 260+"px";
+    }
+    else{
+        glovesDiv.style.left = touchMove+"px";
+    }
+}
+
+
 
